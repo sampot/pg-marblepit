@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="玻璃彈珠坑：圓形彈珠台、拖曳發射、碰撞入坑得分。純前端 Playgrounds SAM。"
+    />
+    <title>玻璃彈珠坑</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main>
+      <header class="hero">
+        <h1>玻璃彈珠坑</h1>
+        <p class="tagline">圓坑彈珠 · 碰撞入洞 · 自製音效</p>
+      </header>
+
+      <section class="meter" aria-label="比分">
+        <div class="meter-item">
+          <span class="label">你入坑</span>
+          <strong id="score">0</strong>
+        </div>
+        <div class="meter-item">
+          <span class="label">對手入坑</span>
+          <strong id="ai-score">0</strong>
+        </div>
+        <div class="meter-item">
+          <span class="label">最佳</span>
+          <strong id="best">0</strong>
+        </div>
+        <div class="meter-actions">
+          <button type="button" id="btn-mute" class="secondary" aria-pressed="true">
+            音效開
+          </button>
+        </div>
+      </section>
+
+      <div class="controls">
+        <button type="button" id="btn-start">開局</button>
+      </div>
+
+      <p id="status" class="status" role="status">準備開局</p>
+
+      <div class="stage">
+        <canvas
+          id="game"
+          width="360"
+          height="480"
+          role="img"
+          aria-label="玻璃彈珠坑遊戲區"
+        ></canvas>
+      </div>
+
+      <p class="hint">
+        開局後，在<strong>你的藍色彈珠</strong>上拖曳反向拉弓、放開發射；把對手彈珠撞進圓坑裡的洞即得分。彈珠慢速經過洞口才會落入。先讓對手入坑
+        3 次者勝。佈局與名稱為原創小品，致敬彈珠檯／坑洞玩法類型，非任一商業作品復刻。
+      </p>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
