@@ -41,7 +41,13 @@ function loadBest() {
 }
 
 function saveBest(n) {
-  localStorage.setItem(BEST_KEY, String(n));
+  try {
+    localStorage.setItem(BEST_KEY, String(n));
+  } catch {
+    /* */
+  }
+  // KV 為權威；LS 僅快取
+  void fetch(`/api/kv/${BEST_KEY}`, { method: "PUT", body: String(n) }).catch(() => {});
 }
 
 let bestScore = loadBest();
@@ -493,6 +499,17 @@ document.body.addEventListener(
 );
 
 setStatus("點開局 · 拖曳彈珠入坑得分");
+// KV 為權威；本地快取過舊時以遠端為準
+void fetch(`/api/kv/${BEST_KEY}`)
+  .then((r) => (r.ok ? r.text() : null))
+  .then((raw) => {
+    const n = Math.max(0, Number(raw) || 0);
+    if (n > bestScore) {
+      bestScore = n;
+      syncHud();
+    }
+  })
+  .catch(() => {});
 syncHud();
 requestAnimationFrame((ts) => {
   lastTs = ts;
